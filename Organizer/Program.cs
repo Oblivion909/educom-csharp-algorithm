@@ -1,44 +1,54 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Linq;
+using System.Text;
+using System.Threading.Tasks;
 
 namespace Organizer
 {
     public class Program
     {
-        public static void Main(string[] args)
+        public static void Main(string[] _)
         {
-            // Press <F5> to run this code, when "Hello World!" appears in a black box, remove the line below and write your code below.
-            Console.WriteLine("Hello World!");
-            ShowList("Example of ShowList", new List<int>() { -33, 3, 2, 2, 3, 34, 34, 32, 1, 3, 5, 3, -22, -99, 33, -22, 11, 3, 33, 12, -2, -21, 4, 34, 22, 15, 34,-22 });
+            //Calls to the Program and the ShiftHighestSort classes.
+            Program program = new Program();
+            ShiftHighestSort sortByHighest = new ShiftHighestSort();
+            //Makes a new list with 10 items.
+            List<int> unsortedList = program.RandomIntGenerator(10);     
         }
 
-
-        /* Example of a static function */
-
-        /// <summary>
-        /// Show the list in lines of 20 numbers each
-        /// </summary>
-        /// <param name="label">The label for this list</param>
-        /// <param name="theList">The list to show</param>
-        public static void ShowList(string label, List<int> theList)
+        public List<int> RandomIntGenerator(int n)
         {
-            int count = theList.Count;
-            if (count > 100)
+            //Calls to the ShiftHighestSort class
+            ShiftHighestSort sortByHighest = new ShiftHighestSort();
+            //Sets a maximum and a minimum number for the random number generator.
+            int min = -99;
+            int max = 99;
+            //randomizes 10 integers and adds them to the list.
+            Random random = new Random();
+            List<int> numbers = new List<int>();
+            Console.WriteLine("Unsorted list:");
+            for (int i = 0; i < n; i++)
             {
-                count = 300; // Do not show more than 300 numbers
+                numbers.Add(random.Next(min, max));
             }
-            Console.WriteLine();
-            Console.Write(label);
-            Console.Write(':');
-            for (int index = 0; index < count; index++)
-            {
-                if (index % 20 == 0) // when index can be divided by 20 exactly, start a new line
-                {
-                    Console.WriteLine();
-                }
-                Console.Write(string.Format("{0,3}, ", theList[index]));  // Show each number right aligned within 3 characters, with a comma and a space
-            }
-            Console.WriteLine();
+            //Prints the unsorted list.
+            numbers.ForEach(i => Console.Write("{0}\t", i));
+            //Call to the sort function
+            SortFunction(numbers, -99, 99);
+            return numbers;
         }
+
+        public void SortFunction(List<int> list, int min, int max)
+        {
+            //Sorts the list that is given in the parameter on an ascending scale.
+            Console.WriteLine("\n");
+            Console.WriteLine("Sorted list:");
+            //Prints the sorted list.
+            list.Sort();
+            list.ForEach(i => Console.Write("{0}\t", i));
+            Console.ReadKey();
+        }
+
     }
 }
